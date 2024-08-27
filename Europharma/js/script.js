@@ -1,59 +1,42 @@
 var email = "";
+
 function handleLogin() {
-    // Obtém o valor do campo de texto do nome de usuário
     email = document.getElementById('email').value;
-    
-    // Exibe o nome de usuário no console (ou você pode fazer outra coisa com ele)
     console.log('Usuário digitado:', email);
-    
-    // Aqui você pode adicionar mais lógica, como enviar os dados para um servidor
 
-   if(email === "usuario"){
-    redirectToPage();
-    }else if(email === "ADM"){
-    redirectToPage();
+    if (email === "usuario") {
+        redirectToPage(email);
+    } else if (email === "ADM") {
+        redirectToPage(email);
+    } else {
+        window.alert("usuario nao encontrado")
     }
-    else{
-    window.alert("usuario nao encontrado")
-    } 
- 
-
-    gravaUsu();
-    return email;
 }
 
 
-function redirectToPage() {
-    var email = document.getElementById('email').value;
-            
-    // Armazena o nome de usuário no sessionStorage
-    
-    window.location.href = 'treinamentos.html';
-    console.log('Usuário digitado:', email);
-    window.alert(email)
-   return email;
-}
+function redirectToPage(email) {
+    //armazenando o campo no localStorage
+    localStorage.setItem("userEmail", email);
+   // window.location.href = 'treinamentos.html';
 
-var aux = gravaUsu();
-function gravaUsu(){
-    email = document.getElementById('email').value;
-
-    console.log('teste gravausu ' + email);
-    return email;
+    if (email === "usuario") {
+        window.location.href = 'userIni.html';
+    } else if (email === "ADM") {
+        window.location.href = 'treinamentos.html';
+    }
 }
 
 
-function validaUsu(){
-   var email = gravaUsu();
-    window.alert(email);
+
+function validaUsu() {
+    //retornando a variavel salva no localSotrage
+    const userEmail = localStorage.getItem("userEmail");
     console.log('A página foi carregada e a função foi chamada.');
-if (email === "usuario") {
-    document.getElementById('var_usu').textContent = `${email}`;
-    sessionStorage.removeItem('var_usu');
+    if (userEmail === "usuario") {
+        document.getElementById('var_usu').textContent = `${userEmail}`;
 
-}else if (email === "ADM"){
-    document.getElementById('var_usu').textContent = `${email}`;
-    sessionStorage.removeItem('var_usu');
-}
-}
+    } else if (userEmail === "ADM") {
+        document.getElementById('var_usu').textContent = `${userEmail}`;
 
+    }
+}
